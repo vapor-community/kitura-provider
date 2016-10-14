@@ -53,9 +53,7 @@ The provider adds a configurable server called `"kitura"`. To use the server, ed
 
 ```json
 {
-	...,
     "server": "kitura"
-    ...
 }
 ```
 
