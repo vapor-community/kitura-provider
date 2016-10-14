@@ -18,6 +18,58 @@
 
 The Kitura provider for Vapor allows you to use IBM's Kitura HTTP server in your [Vapor](https://github.com/vapor/vapor) application.
 
+## 🚀 Setup
+
+Add the `kitura-provider` package to your `Package.swift`.
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "VaporApp",
+    dependencies: [
+        .Package(url: "https://github.com/vapor/vapor.git", majorVersion: 1, minor: 1),
+        .Package(url: "https://github.com/vapor/kitura-provider.git", majorVersion: 1, minor: 0),
+    ]
+)
+```
+
+> Note: This package requires Vapor 1.1 or later.
+
+### Provider
+
+Once the package is added, you can add the provider to your Droplet.
+
+```swift
+import Vapor
+import VaporKitura
+
+let drop = Droplet()
+
+drop.addProvider(VaporKitura.Provider.self)
+```
+
+The provider adds a configurable server called `"kitura"`. To use the server, edit your `Config/droplet.json` file.
+
+```json
+{
+    "server": "kitura"
+}
+```
+
+### Manual
+
+If you are not using configuration files, or you would like to hard-code the Kitura server to your Droplet, you can set the server directly.
+
+```swift
+import Vapor
+import VaporKitura
+
+let drop = Droplet()
+
+drop.server = KituraServer.self
+```
+
 ## 📖 Documentation
 
 Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for more instructions on how to use this package. 
