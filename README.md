@@ -46,7 +46,7 @@ import VaporKitura
 
 let drop = Droplet()
 
-drop.addProvider(VaporKitura.Provider.self)
+try drop.addProvider(VaporKitura.Provider.self)
 ```
 
 The provider adds a configurable server called `"kitura"`. To use the server, edit your `Config/droplet.json` file.
