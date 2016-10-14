@@ -9,7 +9,7 @@ public final class KituraLogger: LoggerAPI.Logger {
     }
 
     public func log(_ type: LoggerMessageType, msg: String, functionName: String, lineNum: Int, fileName: String) {
-        log.log(type.makeLogLevel(), message: msg, file: fileName, function: functionName, line: lineNum)
+        log.log(type.makeLogLevel(), message: "[Kitura] \(msg)", file: fileName, function: functionName, line: lineNum)
     }
 
     public func isLogging(_ level: LoggerMessageType) -> Bool {
