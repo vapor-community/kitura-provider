@@ -4,7 +4,7 @@ import URI
 
 extension ServerRequest {
     public func makeEngine() throws -> EngineRequest {
-        let uri = try URI(urlString)
+        let uri = try URI(urlURL.absoluteString)
 
         let version = Version(
             major: Int(httpVersionMajor ?? 1),
@@ -22,13 +22,12 @@ extension ServerRequest {
 
         let body: Body = .data(try readString()?.bytes ?? [])
 
-        return try EngineRequest(
+        return EngineRequest(
             method: Method(method),
             uri: uri,
             version: version,
             headers: engineHeaders,
-            body: body,
-            peerAddress: nil
+            body: body
         )
     }
 }
