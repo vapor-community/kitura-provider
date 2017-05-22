@@ -15,8 +15,8 @@ class KituraServerTests: XCTestCase {
 
     func testServer() throws {
         let port = 8095
-        let server = try KituraServer(host: "localhost", port: port, securityLayer: .none, middleware: [])
-        let drop = Droplet()
+        let server = try KituraServer(hostname: "localhost", port: UInt16(port), .none)
+        let drop = try Droplet()
 
         Log.logger = KituraLogger(log: drop.log)
 
@@ -30,9 +30,9 @@ class KituraServerTests: XCTestCase {
 
         let test = TestResponder()
 
-        try background {
+        background {
             do {
-                try server.start(responder: test) { error in
+                try server.start(test) { error in
                     XCTFail("Server error: \(error)")
                 }
 
@@ -61,7 +61,7 @@ class KituraServerTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(bytes.string, "Example Tested")
+        XCTAssertEqual(bytes.makeString(), "Example Tested")
 
         guard let testHeader = response.headers["test"] else {
             XCTFail("No 'Test' header.")
