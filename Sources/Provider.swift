@@ -2,24 +2,22 @@ import Vapor
 import LoggerAPI
 
 public final class Provider: Vapor.Provider {
-    public init() {
+    
+    public static let repositoryName: String = "kitura-provider"
+    
+    public init() {}
 
-    }
-
-    public convenience init(config: Settings.Config) throws {
+    public convenience init(config: Config) throws {
         self.init()
+    }
+    
+    public func boot(_ config: Config) throws {
+        config.addConfigurable(server: KituraServer.self, name: "kitura")
     }
 
     public func boot(_ drop: Droplet) {
-        drop.addConfigurable(server: KituraServer.self, name: "kitura")
         Log.logger = KituraLogger(log: drop.log)
     }
 
-    public func afterInit(_ drop: Droplet) {
-
-    }
-
-    public func beforeRun(_ drop: Droplet) {
-
-    }
+    public func beforeRun(_ droplet: Droplet) throws {}
 }
