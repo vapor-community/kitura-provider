@@ -14,7 +14,7 @@ extension ServerResponse {
         case .chunked(let closure):
             headers.append("Transfer-Encoding", value: ["Chunked"])
             let stream = KituraResponseStream(response: self)
-            let chunker = ChunkStream(stream: stream)
+            let chunker = ChunkStream(stream)
             try closure(chunker)
         case .data(let bytes):
             headers.append("Content-Length", value: [bytes.count.description])

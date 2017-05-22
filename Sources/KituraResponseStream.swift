@@ -3,7 +3,12 @@ import Transport
 import Core
 import Foundation
 
-public final class KituraResponseStream: Transport.WriteableStream {
+public final class KituraResponseStream: WriteableStream {
+    
+    public func write(max: Int, from buffer: Bytes) throws -> Int {
+        try response.write(from: Data(bytes: buffer))
+        return buffer.count
+    }
     
     public let response: KituraNet.ServerResponse
     
@@ -16,11 +21,7 @@ public final class KituraResponseStream: Transport.WriteableStream {
     
     public func setTimeout(_ timeout: Double) throws {}
     
-    public func write(_ bytes: Bytes) throws {
-        try response.write(from: Data(bytes: bytes))
+    public func close() throws {
+        isClosed = true
     }
-    
-    public func flush() throws {}
-    
-    public func close() throws {}
 }
